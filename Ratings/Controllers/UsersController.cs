@@ -51,7 +51,7 @@ namespace Ratings.Controllers
                 var userToBeCreated = new User(user.Name);
                 int id = _repository.Create(userToBeCreated);
 
-                return Ok(new SuccessActionResult<int>(id));
+                return Ok(new SuccessActionResult<object>(new { userId = id }));
             }
             catch (ArgumentException exception)
             {
