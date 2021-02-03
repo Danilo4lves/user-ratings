@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ratings.Data;
+using Ratings.Repositories.Ratings;
 using Ratings.Repositories.Users;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,8 @@ namespace Ratings
         {
             services.AddDbContext<UsersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserRatingsConnectionString")));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddControllers();
+            services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
