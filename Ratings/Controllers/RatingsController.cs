@@ -17,6 +17,7 @@ namespace Ratings.Controllers
         public RatingsController(IRatingRepository repository)
         {
             _repository = repository;
+            // renomear para _ratingRepository para evitar confusão
         }
 
         [HttpGet("{userId}/{getHistory?}")]
@@ -24,6 +25,7 @@ namespace Ratings.Controllers
         {
             try
             {
+                // não era melhor getHistory ser um bool?
                 if (getHistory != 0 && getHistory != 1 && getHistory != null)
                 {
                     throw new ArgumentException("Parâmetro inválido para obtenção de histórico.");
@@ -32,11 +34,16 @@ namespace Ratings.Controllers
                 var ratings = _repository.GetById(userId);
 
                 bool isToProvideHistory = getHistory == 1;
-                var mostRecentRating = ratings.LastOrDefault();
+                var mostRecentRating = ratings
+                    .OrderByDescending(r => r.ReviewDate)
+                    .LastOrDefault(); // como não tá ordenado, nada garante que você tá pegando realmente o que você quer aqui
 
                 if (mostRecentRating == null)
                 {
-                    return NotFound(new ErrorActionResult(404, "Não há nenhuma avaliação."));
+                    return NotFound(new ErrorActionResult(404, "Não há nenhuma avaliação.")); 
+                    // 404 Not Found significa que não achou o método
+                    // NotContent é mais apropriado
+
                 }
 
                 if (isToProvideHistory)

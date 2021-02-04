@@ -36,5 +36,12 @@ namespace Ratings.Repositories.Ratings
 
             return totalRowsAffected > 0;
         }
+
+        public void Dispose()
+        {
+            // esse método é chamado automaticamente ao fim do escopo de cada requisição.
+            // É recomendável fazer isso (não lembro agora o motivo específico, algo a ver com otimização do uso de recursos)
+            _context.Dispose();
+        }
     }
 }

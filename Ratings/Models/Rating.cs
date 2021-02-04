@@ -5,7 +5,7 @@ namespace Ratings.Models
 {
     public class Rating
     {
-        public Rating(int userId, string mood, string platform, string appVersion, string feedback)
+        public Rating(int userId, string mood, string platform, string appVersion, string feedback = null)
         {
             this.UserId = userId;
             this.Mood = mood;
@@ -15,10 +15,8 @@ namespace Ratings.Models
             this.ReviewDate = DateTime.Now;
         }
 
-        public Rating(int userId, string mood, string platform, string appVersion) : this(userId, mood, platform, appVersion, null) { }
-
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
         [Required]
         public int UserId { get; set; }
