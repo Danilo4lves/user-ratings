@@ -1,9 +1,10 @@
 ﻿using Ratings.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Ratings.Repositories.Ratings
 {
-    public interface IRatingRepository
+    public interface IRatingRepository : IDisposable
     {
         bool SaveChanges();
 

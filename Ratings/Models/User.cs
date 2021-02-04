@@ -5,20 +5,17 @@ namespace Ratings.Models
 {
     public class User
     {
-        public User(string name, IEnumerable<Rating> ratings)
+        public User(string name)
         {
             this.Name = name;
-            this.Ratings = ratings;
         }
 
-        public User(string name) : this(name, new List<Rating> { }) { }
-
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
         [Required]
         public string Name { get; set; }
 
-        public IEnumerable<Rating> Ratings { get; set; }
+        public IEnumerable<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }
